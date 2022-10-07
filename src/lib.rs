@@ -70,11 +70,18 @@ fn render(mut template: String, mut data: HashMap<&str, Data>) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use crate::{render, Data};
+    use std::collections::HashMap;
 
     #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+    fn basic_template() {
+        let input = std::fs::read_to_string("dist/index.html")
+            .expect("Something went wrong reading the file");
+        let data = HashMap::from([
+            ("hello", Data::Text("internet".to_string())),
+            ("allowed", Data::Boolean(false)),
+        ]);
+
+        print!("{}", render(input, data))
     }
 }
