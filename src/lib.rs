@@ -17,7 +17,7 @@ impl fmt::Display for Data {
     }
 }
 
-fn render(mut template: String, mut data: HashMap<&str, Data>) -> String {
+fn render(mut template: String, data: HashMap<&str, Data>) -> String {
     let print_regex = Regex::new(r"\{\{(.*?)\}\}").unwrap();
     template = print_regex
         .replace_all(&template, |caps: &Captures| {
@@ -79,7 +79,7 @@ mod tests {
             .expect("Something went wrong reading the file");
         let data = HashMap::from([
             ("hello", Data::Text("internet".to_string())),
-            ("allowed", Data::Boolean(false)),
+            ("allowed", Data::Boolean(true)),
         ]);
 
         print!("{}", render(input, data))
